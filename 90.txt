@@ -1,0 +1,145 @@
+// EmonLibrary examples openenergymonitor.org, Licence GNU GPL V3
+// 90¤Àª©¥»
+
+#include "EmonLib.h"                   // Include Emon Library
+EnergyMonitor emon1;                   // Create an instance
+double i;
+void setup()
+{  
+  Serial.begin(9600);
+  
+  emon1.current(5, 65.0);             // Current: input pin, calibration.
+}
+
+void loop()
+{
+  double Irms = emon1.calcIrms(1470);  // Calculate Irms only
+  
+  Serial.print("P : ");
+  i=Irms*110.0;
+  /*if(i>100&&i<500){
+      i=Irms*110.0*1.1;}*/
+  
+  
+  Serial.print(i);	       // Apparent power
+  
+  //Serial.print("  ");
+  //Serial.print("Irms : ");
+  //Serial.println(Irms);		       // Irms
+  
+  if(i>1000){
+    i=i-1200;
+    Serial.print("  !Water!");
+      if(i>450)
+      {
+        i=i-500;
+        Serial.print("  + Hair drier!-2");
+         if(i>180)
+         {
+            i=i-200;
+            Serial.print("  + Hair drier!");
+            if(i>70)
+            { i=i-80;
+              Serial.print("  + 2Fan!");
+              if(i>30){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>35){Serial.print("  + Paper!");}}
+          }
+          else
+          {
+            if(i>70)
+            { i=i-85;
+              Serial.print("  + 2Fan!");
+              if(i>30){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>30){Serial.print("  + Paper!");}}
+          }
+      }
+      else
+      {
+         if(i>220)
+         {
+            i=i-230;
+            Serial.print("  + Hair drier!");
+            if(i>80)
+            { i=i-90;
+              Serial.print("  + 2Fan!");
+              if(i>30){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>30){Serial.print("  + Paper!");}}
+          }
+          else
+          {
+            if(i>70)
+            { i=i-85;
+              Serial.print("  + 2Fan!");
+              if(i>30){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>30){Serial.print("  + Paper!");}}
+          }
+      }
+      
+  }
+    
+  else{
+      if(i>500)
+      {
+        i=i-550;
+        Serial.print("   Hair drier!-2");
+    
+         if(i>220)
+         {
+            i=i-235;
+            Serial.print("  + Hair drier!");
+            if(i>75)
+            { i=i-85;
+              Serial.print("  + 2Fan!");
+              if(i>36){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>36){Serial.print("  + Paper!");}}
+          }
+          else
+          {
+            if(i>75)
+            { i=i-85;
+              Serial.print("  2Fan!");
+              if(i>36){Serial.print("  + Paper!!");}   
+            }        
+            else
+            {if(i>36){Serial.print("   Paper!");}}
+          } 
+      }
+      else
+      {
+          if(i>220)
+         {
+            i=i-240;
+            Serial.print("   Hair drier!");
+            if(i>75)
+            { i=i-85;
+              Serial.print("  + 2Fan!");
+              if(i>36){Serial.print("  + Paper!");}   
+            }        
+            else
+            {if(i>36){Serial.print("  + Paper!");}}
+          }
+          else
+          {
+            if(i>75)
+            { i=i-85;
+              Serial.print("  2Fan!");
+              if(i>36){Serial.print("  + Paper!!");}   
+            }        
+            else
+            {if(i>36){Serial.print("   Paper!");}}
+          }
+      }
+  }
+  Serial.println("");
+  //delay(1000);
+  }
